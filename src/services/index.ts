@@ -1,10 +1,14 @@
-import constants from "../constants";
-import axios from "axios";
+import serviceInstance from "./service";
 
-const { BASE_URL } = constants;
+const authPaths = {
+  login: "auth/login",
+  googleLogin: "auth/login/google",
+  facebookLogin: "auth/login/facebook",
+  register: "auth/register",
+};
 
 // Auth services
-const loginWithGoogle = async (
+export const loginWithGoogle = async (
   user: {
     email: string | null;
     username: string | null;
@@ -12,23 +16,28 @@ const loginWithGoogle = async (
   },
   token: string | undefined
 ) => {
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/auth/login/google`,
-      {
-        ...user,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
-  } catch (err) {
-    console.error(err);
-  }
+  const data = await serviceInstance.post(authPaths.googleLogin, user, token);
+  serviceInstance.saveToken(data.token);
+  return data;
 };
 
-export default loginWithGoogle;
+export const loginWithFacebook = async (
+  user: {
+    username: string | null;
+    avatar: string | null;
+  },
+  token: string | undefined
+) => {
+  const data = await serviceInstance.post(authPaths.facebookLogin, user, token);
+  serviceInstance.saveToken(data.token);
+  return data;
+};
+
+export const defaultLogin = async (email: string, password: string) => {
+  const data = await serviceInstance.post(authPaths.login, {
+    email,
+    password,
+  });
+  serviceInstance.saveToken(data.token);
+  return data;
+};

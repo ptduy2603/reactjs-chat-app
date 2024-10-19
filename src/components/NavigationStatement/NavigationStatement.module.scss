@@ -1,0 +1,15 @@
+.wrapper {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--text-color);
+
+  & .question {
+    font-weight: 500;
+    margin-right: 4px;
+    user-select: none;
+  }
+
+  & a {
+    color: var(--primary-color);
+  }
+}

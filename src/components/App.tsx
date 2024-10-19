@@ -6,8 +6,8 @@ const App: React.FC = () => {
   return (
     <main className="app">
       <Routes>
-        {routes.map((item: RouteType, index: number) => (
-          <Route key={index} path={item?.path} element={<item.element />} />
+        {routes.map((route: RouteType, index: number) => (
+          <Route key={index} path={route?.path} element={<route.element />} />
         ))}
       </Routes>
     </main>

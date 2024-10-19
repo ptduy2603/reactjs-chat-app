@@ -1,36 +1,23 @@
 import "./Home.scss";
-import auth from "../../configs/firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import loginWithGoogle from "../../services";
+import { useEffect } from "react";
+import io from "socket.io-client";
+import constants from "../../constants";
+const socket = io(constants.BASE_URL);
 
 function HomePage() {
-  const handleLoginWithGoogle = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user: {
-        email: string | null;
-        username: string | null;
-        avatar: string | null;
-      } = {
-        email: result.user?.email,
-        username: result.user?.displayName,
-        avatar: result.user?.photoURL,
-      };
+  useEffect(() => {
+    socket.emit("chat", "Hello I am client");
 
-      const token: string | undefined = await result.user.getIdToken();
+    socket.on("greet", (greeting) => console.log(greeting));
 
-      const data = await loginWithGoogle(user, token);
-      console.log(data);
-    } catch (error) {
-      console.error("Login with google error: " + error);
-    }
-  };
+    return () => {
+      socket.off("chat");
+    };
+  }, []);
 
   return (
     <>
       <div>This is my home page</div>
-      <button onClick={handleLoginWithGoogle}>Sign in with google</button>
     </>
   );
 }

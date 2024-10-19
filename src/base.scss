@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --primary-color: #1972f5;
+  --secondary-color: #8fb9f7;
+  --background-color: rgb(237, 246, 250);
+  --text-color: #333;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -12,8 +21,113 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.6rem;
 }
 
-// responsive
+// laptop responsive
+.container {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.col {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.col-lg-12 {
+  flex: 0 100%;
+  max-width: 100%;
+}
+
+.col-lg-4 {
+  flex: 0 33.3333%;
+  max-width: 33.3333%;
+}
+
+.col-lg-8 {
+  flex: 0 66.6667%;
+  max-width: 66.6667%;
+}
+
+.col-lg-0 {
+  display: none;
+}
+
+// tablet responsive
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .col-md-0 {
+    display: none;
+  }
+
+  .col-md-4 {
+    flex: 0 33.3333%;
+    max-width: 33.3333%;
+  }
+
+  .col-md-12 {
+    flex: 0 100%;
+    max-width: 100%;
+  }
+
+  .col-md-8 {
+    flex: 0 66.6667%;
+    max-width: 66.6667%;
+  }
+}
+
+// mobile responsive
+@media screen and (max-width: 576px) {
+  .col-sm-12 {
+    flex: 0 100%;
+    max-width: 100%;
+  }
+
+  .col-sm-4 {
+    flex: 0 33.3333%;
+    max-width: 33.3333%;
+  }
+
+  .col-sm-8 {
+    flex: 0 66.6667%;
+    max-width: 66.6667%;
+  }
+
+  .col-sm-0 {
+    display: none;
+  }
+}
+
+// button
+.btn {
+  outline: none;
+  min-width: 100px;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+  transition: all ease-in 0.1s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

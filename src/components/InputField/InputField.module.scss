@@ -1,0 +1,69 @@
+$errorMessageColor: red;
+
+.input-field,
+.input-field.error {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+
+  & .input {
+    flex: 1;
+    height: 100%;
+    font-size: 1.6rem;
+    padding: 8px;
+    border: none;
+    outline: none;
+    caret-color: var(--primary-color);
+
+    &::placeholder {
+      font-size: 1.4rem;
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  & .icon svg {
+    color: var(--text-color);
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+
+    &.eye {
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 50%;
+
+      &:hover {
+        transition: all ease 0.2s;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  &:focus-within {
+    border-color: var(--primary-color);
+  }
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+
+.input-field.error {
+  border-color: $errorMessageColor;
+}
+
+.error {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 1.2rem;
+  color: $errorMessageColor;
+}
