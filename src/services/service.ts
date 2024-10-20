@@ -40,7 +40,7 @@ class Service {
       };
 
       if (isAuthorization) {
-        if (!this.token) return new Error("Token is required");
+        if (!this.token) throw new Error("Token is required");
         headers.Authorization = `Bearer ${this.token}`;
       }
 
@@ -55,6 +55,29 @@ class Service {
       return res.data;
     } catch (error) {
       console.error(`Error in API request to ${BASE_URL}/${path}`);
+      throw error;
+    }
+  }
+
+  async get(path: string, isAuthorization: boolean, queries?: any) {
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (isAuthorization) {
+        if (!this.token) throw new Error("Token is required");
+        headers.Authorization = `Bearer ${this.token}`;
+      }
+
+      const res = await axios.get(`${BASE_URL}/${path}`, {
+        headers,
+        params: queries,
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error get ${BASE_URL}/path: ${error}`);
       throw error;
     }
   }

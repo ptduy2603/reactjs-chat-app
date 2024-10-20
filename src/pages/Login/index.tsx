@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from "classnames";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import auth from "../../configs/firebase";
@@ -23,6 +23,7 @@ import NavigationStatement from "../../components/NavigationStatement";
 import Button from "../../components/Button";
 import { validateEmail } from "../../utils";
 import AppLoading from "../../components/AppLoading";
+import { AuthContext } from "../../contexts/AuthContext";
 const cx = classNames.bind(styles);
 
 type Errors = {
@@ -34,6 +35,8 @@ function LoginPage() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Errors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const navigator = useNavigate();
+  const { login }: any = useContext(AuthContext);
 
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.value.startsWith(" ")) {
@@ -77,7 +80,11 @@ function LoginPage() {
 
       const data = await loginWithGoogle(user, token);
       toast.success("Login successfully!");
-      console.log(data);
+
+      setTimeout(() => {
+        login(data.user);
+        navigator("/", { replace: true }); // Navigate to the home page
+      }, 2000);
     } catch (error: any) {
       console.error("Login with google error: " + error);
       toast.error(
@@ -106,7 +113,11 @@ function LoginPage() {
       const token = await result.user.getIdToken();
       const data = await loginWithFacebook(user, token);
       toast.success("Login successfully!");
-      console.log(data);
+
+      setTimeout(() => {
+        login(data.user);
+        navigator("/", { replace: true }); // Navigate to the home page
+      }, 2000);
     } catch (error: any) {
       toast.error(
         error?.response?.data?.message ?? "Failed to login with facebook"
@@ -139,7 +150,11 @@ function LoginPage() {
       try {
         const data = await defaultLogin(user.email, user.password);
         toast.success("Login successfully!");
-        console.log(data);
+
+        setTimeout(() => {
+          login(data?.user);
+          navigator("/", { replace: true }); // Navigate to the home page
+        }, 2000);
       } catch (error: any) {
         toast.error(error?.response?.data?.message);
       } finally {
@@ -234,7 +249,7 @@ function LoginPage() {
                   <NavigationStatement
                     question="Don't have an account?"
                     statement="Sign up"
-                    link="/"
+                    link="/register"
                   />
                 </div>
                 <div className={styles["form-group"]}>

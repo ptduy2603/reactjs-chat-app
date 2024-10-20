@@ -1,8 +1,10 @@
 import "./Home.scss";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import io from "socket.io-client";
-import constants from "../../constants";
 const socket = io(constants.BASE_URL);
+
+import constants from "../../constants";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function HomePage() {
   useEffect(() => {
@@ -15,9 +17,13 @@ function HomePage() {
     };
   }, []);
 
+  const { user, logout } = useContext(AuthContext) ?? {};
+
   return (
     <>
+      <h1>Hello {user?.username}</h1>
       <div>This is my home page</div>
+      <button onClick={logout}>Logout</button>
     </>
   );
 }

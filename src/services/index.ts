@@ -1,6 +1,8 @@
 import serviceInstance from "./service";
 
 const authPaths = {
+  fetchUser: "auth/user",
+  fetchAllUsers: "auth/users",
   login: "auth/login",
   googleLogin: "auth/login/google",
   facebookLogin: "auth/login/facebook",
@@ -40,4 +42,9 @@ export const defaultLogin = async (email: string, password: string) => {
   });
   serviceInstance.saveToken(data.token);
   return data;
+};
+
+export const fetchUser = async () => {
+  const data = await serviceInstance.get(authPaths.fetchUser, true, null);
+  return data.user;
 };

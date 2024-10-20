@@ -11,3 +11,18 @@ type ButtonProps = {
   onClick: function;
   disabled?: boolean;
 };
+
+// auth types
+type User = {
+  id: string;
+  username: string;
+  avatar: string;
+  email?: string;
+};
+
+type AuthContextType = {
+  user: User | null | undefined;
+  loading: boolean;
+  login: (user: User) => void;
+  logout: () => void;
+};
