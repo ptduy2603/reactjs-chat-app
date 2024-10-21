@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { isTokenExpired } from "../utils";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
@@ -10,10 +11,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
     if (storedUser) {
       try {
-        const parsedUser: User = JSON.parse(storedUser);
-        setUser(parsedUser);
+        if (token && !isTokenExpired(token)) {
+          const parsedUser: User = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } else {
+          localStorage.clear();
+          setUser(null);
+        }
       } catch (err) {
         console.error("Error parsing user data from localStorage", err);
       }

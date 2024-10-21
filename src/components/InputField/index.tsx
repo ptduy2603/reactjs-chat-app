@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
@@ -12,15 +11,16 @@ type InputFieldProps = {
   id: string;
   name: string;
   label: string;
-  value: string;
+  value?: string;
   isSecure?: boolean | undefined;
   placeholder?: string;
   errorMessage?: string;
   type?: string;
-  onChange: React.ChangeEventHandler;
-  onFocus: React.FocusEventHandler;
+  validFormats?: string;
+  onChange?: React.ChangeEventHandler;
+  onFocus?: React.FocusEventHandler;
   classes?: string | undefined;
-  icon?: any;
+  icon?: ReactNode;
 };
 
 function InputField({
@@ -33,6 +33,7 @@ function InputField({
   onChange = () => {},
   onFocus = () => {},
   type = "text",
+  validFormats,
   classes,
   icon,
   errorMessage,
@@ -51,11 +52,12 @@ function InputField({
         {label}
       </label>
       <div className={cx(styles["input-field"], error && styles.error)}>
-        <span className={styles.icon}>{icon}</span>
+        {icon && <span className={styles.icon}>{icon}</span>}
         <input
           {...params}
           id={id}
           name={name}
+          accept={validFormats ?? "*"}
           value={value}
           type={isShowText ? type : "password"}
           className={`${styles.input} ${classes ?? ""}`}

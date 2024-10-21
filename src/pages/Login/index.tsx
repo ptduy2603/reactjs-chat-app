@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from "classnames";
 import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,7 +55,9 @@ function LoginPage() {
     setErrors(newErrors);
   };
 
-  const handleLoginWithGoogle = async (event: React.MouseEvent) => {
+  const handleLoginWithGoogle = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
 
     try {
@@ -95,7 +96,9 @@ function LoginPage() {
     }
   };
 
-  const handleLoginWithFacebook = async (event: React.MouseEvent) => {
+  const handleLoginWithFacebook = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
 
     try {
@@ -128,7 +131,7 @@ function LoginPage() {
     }
   };
 
-  const handleLogin = async (event: React.MouseEvent) => {
+  const handleLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const newErrors: {
       email?: string;
@@ -189,7 +192,7 @@ function LoginPage() {
                   <InputField
                     id="email"
                     name="email"
-                    label="Your email*"
+                    label="Email*"
                     icon={<FontAwesomeIcon icon={faEnvelope} />}
                     value={user?.email}
                     placeholder="Enter your email..."
@@ -203,7 +206,7 @@ function LoginPage() {
                   <InputField
                     id="password"
                     name="password"
-                    label="Your password*"
+                    label="Password*"
                     icon={<FontAwesomeIcon icon={faLock} />}
                     value={user?.password}
                     placeholder="Enter your password..."

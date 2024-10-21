@@ -48,3 +48,13 @@ export const fetchUser = async () => {
   const data = await serviceInstance.get(authPaths.fetchUser, true, null);
   return data.user;
 };
+
+export const register = async (user: {
+  username: string;
+  email: string;
+  password: string;
+  avatar: string;
+}) => {
+  const data = await serviceInstance.post(authPaths.register, user);
+  return data;
+};

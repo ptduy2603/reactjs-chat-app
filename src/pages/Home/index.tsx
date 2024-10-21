@@ -22,7 +22,11 @@ function HomePage() {
   return (
     <>
       <h1>Hello {user?.username}</h1>
-      <div>This is my home page</div>
+      <img
+        style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+        src={user?.avatar}
+        alt="User avatar"
+      />
       <button onClick={logout}>Logout</button>
     </>
   );

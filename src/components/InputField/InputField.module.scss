@@ -14,6 +14,10 @@ $errorMessageColor: red;
   border-color: rgba(0, 0, 0, 0.2);
   background-color: transparent;
 
+  &:has(input[type="file"]) {
+    border-style: dashed;
+  }
+
   & .input {
     flex: 1;
     height: 100%;
