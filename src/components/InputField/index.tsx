@@ -5,8 +5,6 @@ import classNames from "classnames";
 
 import styles from "./InputField.module.scss";
 
-const cx = classNames.bind(styles);
-
 type InputFieldProps = {
   id: string;
   name: string;
@@ -51,7 +49,7 @@ function InputField({
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
-      <div className={cx(styles["input-field"], error && styles.error)}>
+      <div className={classNames(styles["input-field"], error && styles.error)}>
         {icon && <span className={styles.icon}>{icon}</span>}
         <input
           {...params}

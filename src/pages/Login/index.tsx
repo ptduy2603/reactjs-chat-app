@@ -23,7 +23,6 @@ import Button from "../../components/Button";
 import { validateEmail } from "../../utils";
 import AppLoading from "../../components/AppLoading";
 import { AuthContext } from "../../contexts/AuthContext";
-const cx = classNames.bind(styles);
 
 type Errors = {
   email?: string;
@@ -171,9 +170,9 @@ function LoginPage() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={cx(styles["form-container"], "row")}>
+        <div className={classNames(styles["form-container"], "row")}>
           <div
-            className={cx(
+            className={classNames(
               styles["form-image"],
               "col col-lg-4 col-md-4 col-sm-0"
             )}
@@ -231,7 +230,7 @@ function LoginPage() {
                   </div>
                   <div className={styles["login-options"]}>
                     <button
-                      className={cx("btn")}
+                      className={classNames("btn")}
                       onClick={handleLoginWithGoogle}
                     >
                       <img alt="Google logo" src="/images/google.png" />
@@ -239,7 +238,7 @@ function LoginPage() {
                     </button>
 
                     <button
-                      className={cx("btn")}
+                      className={classNames("btn")}
                       onClick={handleLoginWithFacebook}
                     >
                       <img alt="Facebook logo" src="/images/facebook.png" />

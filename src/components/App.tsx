@@ -12,7 +12,7 @@ const App: React.FC = () => {
   const { loading, user } = useContext(AuthContext) ?? { loading: false };
 
   return (
-    <main className="app">
+    <>
       {loading ? (
         <AppLoading />
       ) : (
@@ -44,7 +44,7 @@ const App: React.FC = () => {
           <Route path="*" element={<DefaultPage />} />
         </Routes>
       )}
-    </main>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import constants from "../constants";
 import { jwtDecode } from "jwt-decode";
+import classNames, { Binding } from "classnames/bind";
 const { EMAIL_VALIDATION_REGEX } = constants;
 
 export const validateEmail = (email: string) => {
@@ -37,3 +38,5 @@ export const isTokenExpired = (token: string) => {
     return true;
   }
 };
+
+export const createStyle = (style: Binding) => classNames.bind(style);

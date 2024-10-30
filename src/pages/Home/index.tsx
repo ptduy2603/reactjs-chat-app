@@ -1,33 +1,28 @@
-import "./Home.scss";
-import { useEffect, useContext } from "react";
-import io from "socket.io-client";
-const socket = io(constants.BASE_URL);
-
-import constants from "../../constants";
-import { AuthContext } from "../../contexts/AuthContext";
+import styles from "./Home.module.scss";
+import Header from "../../components/Header";
 
 function HomePage() {
-  useEffect(() => {
-    socket.emit("chat", "Hello I am client");
-
-    socket.on("greet", (greeting) => console.log(greeting));
-
-    return () => {
-      socket.off("chat");
-    };
-  }, []);
-
-  const { user, logout } = useContext(AuthContext) ?? {};
-
   return (
     <>
-      <h1>Hello {user?.username}</h1>
-      <img
-        style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-        src={user?.avatar}
-        alt="User avatar"
-      />
-      <button onClick={logout}>Logout</button>
+      <Header />
+      <main className={styles.app}>
+        <div className="container">
+          <div className="row">
+            <div
+              className="col col-lg-3 col-md-4 col-sm-0"
+              style={{ background: "red" }}
+            >
+              This is left sidebar
+            </div>
+            <div
+              className="col col-lg-9 col-md-8 col-sm-12"
+              style={{ background: "green" }}
+            >
+              Click on a user to start chatting
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   );
 }

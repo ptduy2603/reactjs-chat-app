@@ -5,6 +5,7 @@
   --secondary-color: #8fb9f7;
   --background-color: rgb(237, 246, 250);
   --text-color: #333;
+  --header-height: 60px;
 }
 
 html {
@@ -25,12 +26,11 @@ body {
   font-size: 1.6rem;
 }
 
-// laptop responsive
 .container {
   display: block;
   margin: 0 auto;
   width: 100%;
-  max-width: 1400px;
+  max-width: 96vw;
 }
 
 .row {
@@ -50,9 +50,9 @@ body {
   max-width: 100%;
 }
 
-.col-lg-4 {
-  flex: 0 33.3333%;
-  max-width: 33.3333%;
+.col-lg-9 {
+  flex: 0 75%;
+  max-width: 75%;
 }
 
 .col-lg-8 {
@@ -60,12 +60,36 @@ body {
   max-width: 66.6667%;
 }
 
+.col-lg-4 {
+  flex: 0 33.3333%;
+  max-width: 33.3333%;
+}
+
+.col-lg-3 {
+  flex: 0 25%;
+  max-width: 25%;
+}
+
 .col-lg-0 {
   display: none;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 4;
+}
+
 // tablet responsive
 @media screen and (min-width: 577px) and (max-width: 768px) {
+  .container {
+    max-width: 96vw;
+  }
+
   .col-md-0 {
     display: none;
   }
@@ -88,6 +112,10 @@ body {
 
 // mobile responsive
 @media screen and (max-width: 576px) {
+  .container {
+    max-width: 90vw;
+  }
+
   .col-sm-12 {
     flex: 0 100%;
     max-width: 100%;

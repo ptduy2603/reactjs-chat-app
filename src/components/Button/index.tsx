@@ -1,8 +1,6 @@
 import styles from "./Button.module.scss";
 import classNames from "classnames";
 
-const cx = classNames.bind(styles);
-
 function Button({
   className,
   content,
@@ -13,7 +11,12 @@ function Button({
   return (
     <>
       <button
-        className={cx("btn", styles.button, className, disabled && "disabled")}
+        className={classNames(
+          "btn",
+          styles.button,
+          className,
+          disabled && "disabled"
+        )}
         onClick={onClick}
       >
         {icon}

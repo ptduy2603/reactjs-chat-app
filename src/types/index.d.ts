@@ -7,7 +7,7 @@ type RouteType = {
 type ButtonProps = {
   icon?: any;
   className?: string;
-  content: string;
+  content: string | ReactDOM;
   onClick: function;
   disabled?: boolean;
 };

@@ -12,7 +12,6 @@ import Button from "../../components/Button";
 import { validateEmail, convertBase64 } from "../../utils";
 import AppLoading from "../../components/AppLoading";
 import { register } from "../../services";
-const cx = classNames.bind(styles);
 
 type Errors = {
   username?: string;
@@ -119,9 +118,9 @@ function RegisterPage() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={cx(styles["form-container"], "row")}>
+        <div className={classNames(styles["form-container"], "row")}>
           <div
-            className={cx(
+            className={classNames(
               styles["form-image"],
               "col col-lg-4 col-md-4 col-sm-0"
             )}
