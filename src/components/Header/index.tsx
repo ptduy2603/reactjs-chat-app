@@ -1,5 +1,5 @@
 import styles from "./Header.module.scss";
-import SearchSidebar from "../SearchDrawer";
+import SearchDrawer from "../SearchDrawer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -59,7 +59,7 @@ function Header() {
         </div>
       </header>
       {isOpenSearchDrawer && (
-        <SearchSidebar handleCloseDrawer={handleCloseDrawer} />
+        <SearchDrawer handleCloseDrawer={handleCloseDrawer} />
       )}
     </>
   );

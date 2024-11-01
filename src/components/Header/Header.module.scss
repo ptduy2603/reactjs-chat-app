@@ -239,18 +239,24 @@
   align-items: center;
   gap: 8px;
   border-radius: 4px;
-  color: #fff;
-  background-color: var(--primary-color);
+  color: var(--text-color);
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all ease-in 0.2s;
+
+  &:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+  }
 
   & img {
     width: 36px;
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+    background-color: #fff;
     object-position: center;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
 
   & .user-card-info {

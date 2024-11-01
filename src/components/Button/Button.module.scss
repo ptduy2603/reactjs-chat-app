@@ -7,6 +7,12 @@
   font-size: 1.6rem;
   font-weight: 500;
 
+  & i,
+  & svg {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
   & + & {
     margin-left: 10px;
   }

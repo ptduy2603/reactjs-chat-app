@@ -11,7 +11,7 @@ import NavigationStatement from "../../components/NavigationStatement";
 import Button from "../../components/Button";
 import { validateEmail, convertBase64 } from "../../utils";
 import AppLoading from "../../components/AppLoading";
-import { register } from "../../services";
+import { register } from "../../services/auth";
 
 type Errors = {
   username?: string;

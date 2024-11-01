@@ -1,60 +1,130 @@
-import serviceInstance from "./service";
+import constants from "../constants";
+import axios from "axios";
 
-const authPaths = {
-  fetchUser: "auth/user",
-  fetchAllUsers: "auth/users",
-  login: "auth/login",
-  googleLogin: "auth/login/google",
-  facebookLogin: "auth/login/facebook",
-  register: "auth/register",
-};
+const { BASE_URL } = constants;
 
-// Auth services
-export const loginWithGoogle = async (
-  user: {
-    email: string | null;
-    username: string | null;
-    avatar: string | null;
-  },
-  token: string | undefined
-) => {
-  const data = await serviceInstance.post(authPaths.googleLogin, user, token);
-  serviceInstance.saveToken(data.token);
-  return data;
-};
+// Apply singleton
+class Service {
+  private static instance: Service | null = null;
+  private token: string | undefined;
 
-export const loginWithFacebook = async (
-  user: {
-    username: string | null;
-    avatar: string | null;
-  },
-  token: string | undefined
-) => {
-  const data = await serviceInstance.post(authPaths.facebookLogin, user, token);
-  serviceInstance.saveToken(data.token);
-  return data;
-};
+  constructor() {
+    // load token from local storage
+    if (!Service.instance) {
+      this.token = localStorage.getItem("token") || "";
+      Service.instance = this;
+    }
 
-export const defaultLogin = async (email: string, password: string) => {
-  const data = await serviceInstance.post(authPaths.login, {
-    email,
-    password,
-  });
-  serviceInstance.saveToken(data.token);
-  return data;
-};
+    return Service.instance;
+  }
 
-export const fetchUser = async () => {
-  const data = await serviceInstance.get(authPaths.fetchUser, true, null);
-  return data.user;
-};
+  saveToken(token: string) {
+    this.token = token;
+    localStorage.setItem("token", token);
+  }
 
-export const register = async (user: {
-  username: string;
-  email: string;
-  password: string;
-  avatar: string;
-}) => {
-  const data = await serviceInstance.post(authPaths.register, user);
-  return data;
-};
+  getToken(): string | undefined {
+    return this.token;
+  }
+
+  async post(
+    path: string,
+    data: any,
+    externalToken?: string | null,
+    isAuthorization?: boolean
+  ) {
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (isAuthorization) {
+        if (!this.token) throw new Error("Token is required");
+        headers.Authorization = `Bearer ${this.token}`;
+      }
+
+      if (externalToken) {
+        headers.Authorization = `Bearer ${externalToken}`;
+      }
+
+      const res = await axios.post(`${BASE_URL}/${path}`, data, {
+        headers,
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error post ${BASE_URL}/${path}: ${error}`);
+      throw error;
+    }
+  }
+
+  async get(path: string, isAuthorization: boolean, queries?: any) {
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (isAuthorization) {
+        if (!this.token) throw new Error("Token is required");
+        headers.Authorization = `Bearer ${this.token}`;
+      }
+
+      const res = await axios.get(`${BASE_URL}/${path}`, {
+        headers,
+        params: queries || [],
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error get ${BASE_URL}/${path}: ${error}`);
+      throw error;
+    }
+  }
+
+  async delete(path: string, data: any, isAuthorization?: boolean | undefined) {
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (isAuthorization) {
+        if (!this.token) throw new Error("Token is required");
+        headers.Authorization = `Bearer ${this.token}`;
+      }
+
+      const res = await axios.delete(`${BASE_URL}/${path}`, {
+        headers,
+        data,
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error delete ${BASE_URL}/${path}: ${error}`);
+      throw error;
+    }
+  }
+
+  async put(path: string, data: any, isAuthorization: boolean | undefined) {
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (isAuthorization) {
+        if (!this.token) throw new Error("Token is required");
+        headers.Authorization = `Bearer ${this.token}`;
+      }
+
+      const res = await axios.put(`${BASE_URL}/${path}`, data, {
+        headers,
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(`Error put ${BASE_URL}/${path}: ${error}`);
+      throw error;
+    }
+  }
+}
+
+export default new Service();

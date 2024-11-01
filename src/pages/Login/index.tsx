@@ -15,7 +15,7 @@ import {
   loginWithGoogle,
   loginWithFacebook,
   defaultLogin,
-} from "../../services";
+} from "../../services/auth";
 import styles from "./Login.module.scss";
 import InputField from "../../components/InputField";
 import NavigationStatement from "../../components/NavigationStatement";

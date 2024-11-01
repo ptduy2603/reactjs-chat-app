@@ -4,11 +4,14 @@ import App from "./components/App.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./base.scss";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
+import { ChatProvider } from "./contexts/ChatContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <AuthProvider>
-      <App />
+      <ChatProvider>
+        <App />
+      </ChatProvider>
     </AuthProvider>
   </BrowserRouter>
 );
