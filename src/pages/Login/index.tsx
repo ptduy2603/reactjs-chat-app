@@ -158,7 +158,7 @@ function LoginPage() {
           navigator("/", { replace: true }); // Navigate to the home page
         }, 2000);
       } catch (error: any) {
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || "Login error");
       } finally {
         setIsLoading(false);
       }

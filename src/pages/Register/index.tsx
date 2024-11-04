@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import imageCompression from "browser-image-compression";
 
 import styles from "../Login/Login.module.scss";
 import InputField from "../../components/InputField";
@@ -55,8 +56,19 @@ function RegisterPage() {
   ) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
-      const base64Image = await convertBase64(file);
-      setAvatar(base64Image as string);
+      const compressOptions = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 200,
+        useWebWorker: true,
+      };
+
+      try {
+        const compressedFile = await imageCompression(file, compressOptions);
+        const base64Image = await convertBase64(compressedFile);
+        setAvatar(base64Image as string);
+      } catch (error) {
+        console.error(`Error upload avatar: ${error}`);
+      }
     }
   };
 
@@ -105,13 +117,13 @@ function RegisterPage() {
 
       await register(newUser);
       toast.success("Register new user successfully!");
-    } catch (error: any) {
-      toast.error(error?.data?.message);
-    } finally {
-      setIsLoading(false);
       setTimeout(() => {
         navigator("/login", { replace: true });
       }, 1000);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Register error");
+    } finally {
+      setIsLoading(false);
     }
   };
 

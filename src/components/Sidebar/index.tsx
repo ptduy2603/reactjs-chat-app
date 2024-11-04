@@ -10,6 +10,11 @@ import ChatCard from "../ChatCard";
 function Sidebar() {
   const { chats } = useContext(ChatContext) || {};
 
+  chats?.forEach((item: Chat | Group): item is Chat => {
+    console.log("host" in item);
+    return "host" in item;
+  });
+
   return (
     <>
       <div className={styles.sidebar}>

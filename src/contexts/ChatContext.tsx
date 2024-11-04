@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 import { getUserChats } from "../services/chat";
-// import { getGroups } from "../services/group";
+import { getGroups } from "../services/group";
 export const ChatContext = createContext<ChatContextType | null>(null);
 
 export function ChatProvider({ children }: { children: ReactNode }) {
@@ -15,16 +15,11 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     const fetchChatsAndGroups = async () => {
       if (user) {
         try {
-          let fetchedChats: any = await getUserChats();
-          fetchedChats = fetchedChats.map((chat: any) => {
-            chat.id = chat._id;
-            delete chat._id;
-            return chat;
-          });
-          // const fetchedGroups: Group[] = await getGroups();
-
+          const fetchedChats: Chat[] = await getUserChats();
+          const fetchedGroups: Group[] = await getGroups();
+          console.log("Fetch chats: ", fetchedChats, fetchedGroups);
           setChats(fetchedChats);
-          // setGroups(fetchedGroups);
+          setGroups(fetchedGroups);
         } catch (error) {
           console.error(`Fetch chats and groups error: ${error}`);
         }
@@ -35,6 +30,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   const addChat = (newChat: Chat) => {
+    if (!newChat) return;
     setChats([newChat, ...chats]);
   };
 

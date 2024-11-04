@@ -55,7 +55,7 @@ export const register = async (user: {
   password: string;
   avatar: string;
 }) => {
-  const data = await serviceInstance.post(authPaths.register, user);
+  const data = await serviceInstance.post(authPaths.register, user, null);
   return data;
 };
 

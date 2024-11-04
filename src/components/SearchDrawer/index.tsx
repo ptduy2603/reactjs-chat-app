@@ -33,6 +33,11 @@ function SearchDrawer({ handleCloseDrawer }: Props) {
     }
   };
 
+  const handleResetInput = () => {
+    setSearchInput("");
+    setUsers([]);
+  };
+
   return (
     <>
       <div className={styles["search_drawer"]}>
@@ -64,10 +69,14 @@ function SearchDrawer({ handleCloseDrawer }: Props) {
               <>
                 {users.length ? (
                   users.map((user) => (
-                    <UserSearchCard key={user?.id} user={user} />
+                    <UserSearchCard
+                      key={user.id}
+                      user={user}
+                      handleResetInput={handleResetInput}
+                    />
                   ))
                 ) : (
-                  <p style={{ textAlign: "center" }}>Not found.</p>
+                  <p style={{ textAlign: "center" }}>User not found</p>
                 )}
               </>
             )}

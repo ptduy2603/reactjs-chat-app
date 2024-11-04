@@ -9,9 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import ProfileModal from "../ProfileModal";
 
 function Header() {
   const [isOpenSearchDrawer, setIsOpenSearchDrawer] = useState(false);
+  const [isShowUserModal, setIsShowUserModal] = useState(false);
   const { user, logout } = useContext(AuthContext) || {};
 
   const handleCloseDrawer = () => setIsOpenSearchDrawer(false);
@@ -44,7 +46,10 @@ function Header() {
               <div className={styles["user_icon"]}>
                 <img src={user?.avatar} alt="User avatar" />
                 <ul className={styles["menu"]}>
-                  <li className={styles["menu_item"]}>
+                  <li
+                    className={styles["menu_item"]}
+                    onClick={() => setIsShowUserModal(true)}
+                  >
                     <FontAwesomeIcon icon={faUser} />
                     My profile
                   </li>
@@ -60,6 +65,12 @@ function Header() {
       </header>
       {isOpenSearchDrawer && (
         <SearchDrawer handleCloseDrawer={handleCloseDrawer} />
+      )}
+      {isShowUserModal && (
+        <ProfileModal
+          user={user}
+          handleCloseModal={() => setIsShowUserModal(false)}
+        />
       )}
     </>
   );

@@ -9,7 +9,7 @@ const FIREBASE_APP_ID = import.meta.env.VITE_FIREBASE_APP_ID;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const EMAIL_VALIDATION_REGEX: RegExp =
   // eslint-disable-next-line no-useless-escape
-  /^[a-zA-Z0-9_.+\-]+[\x40][a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const constants: {
   FIREBASE_API_KEY: string | undefined;

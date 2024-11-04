@@ -199,6 +199,10 @@
     width: 20%;
     text-align: center;
     color: #fff;
+
+    & svg {
+      margin: unset;
+    }
   }
 
   & input {
@@ -228,12 +232,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
 // user search card css
 .user-card {
   width: 100%;
-  display: inline-block;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -275,6 +279,10 @@
     font-size: 1.2rem;
     margin: 0;
     margin-top: 6px;
+
+    & span {
+      font-weight: 500;
+    }
   }
 
   &:hover {
@@ -284,8 +292,4 @@
   &:active {
     transform: scale(0.9);
   }
-}
-
-.user-card + .user-card {
-  margin-top: 10px;
 }
